@@ -27,17 +27,8 @@
 
     <bean name="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <!--处理实体映射文件时可以有以下三种方式:-->
-        <property name="mappingResources">
-            <list>
-                <value>entity/hbm/User.hbm.xml</value>
-            </list>
-        </property>
         <property name="mappingLocations">
             <value>entity/hbm/*.hbm.xml</value>
-        </property>
-        <property name="mappingDirectoryLocations">
-            <value>entity/hbm</value>
         </property>
         <property name="hibernateProperties">
             <props merge="default">
