@@ -11,12 +11,50 @@
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-    <context:annotation-config/><!--允许注解的使用-->
-    <context:component-scan base-package="dao"/>
+    <!--<context:component-scan base-package="dao"/>-->
     <bean name="placeholderconfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location">
             <value>/init.properties</value>
         </property>
+    </bean>
+
+    <bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="username" value="${dataScource.username}"/>
+        <property name="url" value="${dataSource.url}"/>
+        <property name="password" value="${dataSource.password}"/>
+        <property name="driverClassName" value="${dataSource.driverClassName}"/>
+    </bean>
+
+    <bean name="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mappingResources">
+            <list>
+                <value>hbm/User.xml</value>
+            </list>
+        </property>
+
+        <property name="hibernateProperties">
+            <props merge="default">
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+                <prop key="hibernate.jdbc.fetch_size">50</prop>
+                <prop key="hibernate.jdbc.batch_size">30</prop>
+                <prop key="hibernate.cache.use_query_cache">true</prop>
+                <!--prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.Provider</prop -->
+                <prop key="hibernate.query.substitutions">true 1, false 0, yes 'Y', no 'N'</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean name="baseDao" class="dao.impl.BaseDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean name="userDao" class="dao.impl.UserDaoImpl">
+        <property name="baseDao" ref="baseDao"/>
     </bean>
 
 </beans>
