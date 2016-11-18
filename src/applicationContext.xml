@@ -11,7 +11,7 @@
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-    <!--<context:component-scan base-package="dao"/>-->
+    <context:annotation-config/>
     <bean name="placeholderconfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location">
             <value>/init.properties</value>
@@ -40,7 +40,6 @@
                 <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
                 <prop key="hibernate.jdbc.fetch_size">50</prop>
                 <prop key="hibernate.jdbc.batch_size">30</prop>
-                <prop key="hibernate.cache.use_query_cache">true</prop>
                 <!--prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.Provider</prop -->
                 <prop key="hibernate.query.substitutions">true 1, false 0, yes 'Y', no 'N'</prop>
                 <prop key="hibernate.cache.use_second_level_cache">false</prop>
