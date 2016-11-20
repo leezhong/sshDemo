@@ -9,6 +9,6 @@ public class HelloAction extends ActionSupport{
 
     public String say(){
         System.out.println("调用了say方法");
-        return null;
+        return SUCCESS;
     }
 }
