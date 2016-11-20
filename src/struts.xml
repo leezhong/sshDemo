@@ -3,12 +3,13 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
-
 <struts>
-        <package name="mydefault" extends="struts-default"/>
-        <package name="demo1" namespace="/user">
+        <package name="mydefault" extends="struts-default">
+        </package>
+        <constant name="struts.devMode" value="true"/>
+        <package name="demo" extends="mydefault">
                 <action name="hello" class="action.HelloAction" method="say">
-
+                        <result name="success">helloWorld.jsp</result>
                 </action>
         </package>
 </struts>
